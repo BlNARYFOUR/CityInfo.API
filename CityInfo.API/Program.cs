@@ -16,10 +16,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+//app.UseAuthorization();
+//app.MapControllers();
 
-app.UseAuthorization();
-
-app.MapControllers();
+app.Run(async context => {
+    await context.Response.WriteAsync("{\"message\":\"Hello World!\",\"status\":200}");
+});
 
 app.Run();
