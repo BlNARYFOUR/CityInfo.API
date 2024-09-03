@@ -16,12 +16,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
-//app.UseAuthorization();
-//app.MapControllers();
-
-app.Run(async context => {
-    await context.Response.WriteAsync("{\"message\":\"Hello World!\",\"status\":200}");
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+app.UseEndpoints(static endpoints => {
+    endpoints.MapControllers();
 });
 
 app.Run();
