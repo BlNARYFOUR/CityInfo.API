@@ -11,13 +11,13 @@ namespace CityInfo.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CityDto>> GetCities()
         {
-            return Ok(CitiesDataStore.GetInstance().Cities);
+            return Ok(CitiesDataStore.Instance.Cities);
         }
 
         [HttpGet("{id}")]
         public ActionResult<CityDto> GetCity(int id)
         {
-            CityDto? city = CitiesDataStore.GetInstance().Cities.FirstOrDefault(c => c.Id == id);
+            CityDto? city = CitiesDataStore.Instance.Cities.FirstOrDefault(c => c.Id == id);
 
             if (null == city)
             {
