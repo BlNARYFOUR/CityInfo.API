@@ -1,27 +1,13 @@
 ﻿using CityInfo.API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CityInfo.API.Controllers
+namespace CityInfo.API.Controllers.PointsOfInterest
 {
-    [Route("api/cities/{cityId}/pointsofinterest")]
+    [Route("api/cities/{cityId}/pointsofinterest/{id}")]
     [ApiController]
-    public class PointOfInterestController : ControllerBase
+    public class GetByIdController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(int cityId)
-        {
-            CityDto? city = CitiesDataStore.Instance.Cities.FirstOrDefault(c => c.Id == cityId);
-
-            if (null == city)
-            {
-                return NotFound();
-            }
-
-            return Ok(city.PointsOfInterest);
-        }
-
-        [HttpGet("{id}")]
+       [HttpGet(Name = "GetPointOfInterest")]
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointOfInterest(int cityId, int id)
         {
             CityDto? city = CitiesDataStore.Instance.Cities.FirstOrDefault(c => c.Id == cityId);
@@ -40,6 +26,5 @@ namespace CityInfo.API.Controllers
 
             return Ok(pointOfInterest);
         }
-
     }
 }
