@@ -6,6 +6,7 @@ namespace CityInfo.API.Controllers.PointsOfInterest
 {
     [Route("api/cities/{cityId}/pointsofinterest/{id}")]
     [ApiController]
+    [Tags("Points of Interest")]
     public class UpdateController : ControllerBase
     {
         [HttpPut]

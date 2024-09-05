@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers.Cities
 {
-    [ApiController]
     [Route("api/cities")]
+    [ApiController]
+    [Tags("Cities")]
     public class GetListController : ControllerBase
     {
         [HttpGet]

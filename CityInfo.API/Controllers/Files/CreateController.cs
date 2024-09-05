@@ -4,6 +4,7 @@ namespace CityInfo.API.Controllers.Files
 {
     [Route("api/files")]
     [ApiController]
+    [Tags("Files")]
     public class CreateController(IWebHostEnvironment webHostEnvironment) : ControllerBase {
         private static int _id = 1;
         private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;

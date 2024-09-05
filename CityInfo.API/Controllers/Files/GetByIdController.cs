@@ -5,6 +5,7 @@ namespace CityInfo.API.Controllers.Files
 {
     [Route("api/files/{id}")]
     [ApiController]
+    [Tags("Files")]
     public class GetByIdController(FileExtensionContentTypeProvider fectProvider) : ControllerBase
     {
         private readonly FileExtensionContentTypeProvider _fectProvider = fectProvider ?? throw new System.ArgumentNullException(nameof(fectProvider));
