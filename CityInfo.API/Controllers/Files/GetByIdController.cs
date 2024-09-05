@@ -5,9 +5,9 @@ namespace CityInfo.API.Controllers.Files
 {
     [Route("api/files/{id}")]
     [ApiController]
-    public class GetByIdController(FileExtensionContentTypeProvider fileExtensionContentTypeProvider) : ControllerBase {
-        private readonly FileExtensionContentTypeProvider _fileExtensionContentTypeProvider = fileExtensionContentTypeProvider
-            ?? throw new System.ArgumentNullException(nameof(fileExtensionContentTypeProvider));
+    public class GetByIdController(FileExtensionContentTypeProvider fectProvider) : ControllerBase
+    {
+        private readonly FileExtensionContentTypeProvider _fectProvider = fectProvider ?? throw new System.ArgumentNullException(nameof(fectProvider));
 
         [HttpGet(Name = "GetFile")]
         public ActionResult GetFile(int id)
@@ -21,7 +21,7 @@ namespace CityInfo.API.Controllers.Files
 
             string path = paths[0];
 
-            if (!_fileExtensionContentTypeProvider.TryGetContentType(path, out string? contentType))
+            if (!_fectProvider.TryGetContentType(path, out string? contentType))
             {
                 contentType = "application/octet-stream";
             }
