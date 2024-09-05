@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
-namespace CityInfo.API.Controllers
+namespace CityInfo.API.Controllers.Files
 {
-    [Route("api/files")]
+    [Route("api/files/{id}")]
     [ApiController]
-    public class FilesController(
-        FileExtensionContentTypeProvider fileExtensionContentTypeProvider
-    ) : ControllerBase {
+    public class GetByIdController(FileExtensionContentTypeProvider fileExtensionContentTypeProvider) : ControllerBase {
         private readonly FileExtensionContentTypeProvider _fileExtensionContentTypeProvider = fileExtensionContentTypeProvider
             ?? throw new System.ArgumentNullException(nameof(fileExtensionContentTypeProvider));
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public ActionResult GetFile(int id)
         {
             string[] paths = Directory.GetFiles("Assets/", "file-" + id.ToString("000") + ".*");
