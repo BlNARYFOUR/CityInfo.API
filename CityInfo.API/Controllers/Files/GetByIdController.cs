@@ -9,10 +9,10 @@ namespace CityInfo.API.Controllers.Files
         private readonly FileExtensionContentTypeProvider _fileExtensionContentTypeProvider = fileExtensionContentTypeProvider
             ?? throw new System.ArgumentNullException(nameof(fileExtensionContentTypeProvider));
 
-        [HttpGet]
+        [HttpGet(Name = "GetFile")]
         public ActionResult GetFile(int id)
         {
-            string[] paths = Directory.GetFiles("Assets/", "file-" + id.ToString("000") + ".*");
+            string[] paths = Directory.GetFiles("Assets/", $"file-{id:000}.*");
 
             if (0 == paths.Length)
             {
