@@ -1,5 +1,7 @@
-﻿using CityInfo.API.Models;
+﻿using CityInfo.API.Commands;
+using CityInfo.API.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers
@@ -42,7 +44,7 @@ namespace CityInfo.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PointOfInterestDto> CreatePointOfInterest(int cityId, PointOfInterestDto pointOfInterest)
+        public ActionResult<PointOfInterestDto> CreatePointOfInterest(int cityId, CreatePointOfInterest createCommand)
         {
             CityDto? city = CitiesDataStore.Instance.Cities.FirstOrDefault(c => cityId == c.Id);
 
@@ -51,13 +53,14 @@ namespace CityInfo.API.Controllers
                 return NotFound();
             }
 
+            PointOfInterestDto pointOfInterest = new() { Name = createCommand.Name, Description = createCommand.Description };
             city.PointsOfInterest.Add(pointOfInterest);
 
             return CreatedAtRoute("GetPointOfInterest", new { cityId, id = pointOfInterest.Id }, pointOfInterest);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<PointOfInterestDto> UpdatePointOfInterest(int cityId, int id, PointOfInterestDto pointOfInterest)
+        public ActionResult<PointOfInterestDto> UpdatePointOfInterest(int cityId, int id, UpdatePointOfInterest updateComnand)
         {
             CityDto? city = CitiesDataStore.Instance.Cities.FirstOrDefault(c => cityId == c.Id);
 
@@ -73,8 +76,39 @@ namespace CityInfo.API.Controllers
                 return NotFound();
             }
 
-            pointOfInterestToUpdate.Name = pointOfInterest.Name;
-            pointOfInterestToUpdate.Description = pointOfInterest.Description;
+            pointOfInterestToUpdate.Name = updateComnand.Name;
+            pointOfInterestToUpdate.Description = updateComnand.Description;
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult<PointOfInterestDto> PatchPointOfInterest(int cityId, int id, JsonPatchDocument<PatchPointOfInterest> patchDocument)
+        {
+            CityDto? city = CitiesDataStore.Instance.Cities.FirstOrDefault(c => cityId == c.Id);
+
+            if (null == city)
+            {
+                return NotFound();
+            }
+
+            PointOfInterestDto? pointOfInterestToPatch = city.PointsOfInterest.FirstOrDefault(p => p.Id == id);
+
+            if (null == pointOfInterestToPatch)
+            {
+                return NotFound();
+            }
+
+            PatchPointOfInterest patchCommand = new() { Name = pointOfInterestToPatch.Name, Description = pointOfInterestToPatch.Description };
+            patchDocument.ApplyTo(patchCommand, ModelState);
+
+            if (!ModelState.IsValid || !TryValidateModel(patchCommand))
+            {
+                return BadRequest(ModelState);
+            }
+
+            pointOfInterestToPatch.Name = patchCommand.Name;
+            pointOfInterestToPatch.Description = patchCommand.Description;
 
             return NoContent();
         }
