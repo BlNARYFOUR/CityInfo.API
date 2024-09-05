@@ -22,7 +22,7 @@ namespace CityInfo.API.Controllers.Files
                 return BadRequest($"No or invalid file given: {file.ContentType}.");
             }
 
-            string path = Path.Combine(_webHostEnvironment.ContentRootPath, "Assets/", $"file-{++_id:000}.{contentType[1]}");
+            string path = Path.Combine(_webHostEnvironment.ContentRootPath, "assets/files/", $"file-{++_id:000}.{contentType[1]}");
 
             using FileStream stream = new(path, FileMode.Create);
             await file.CopyToAsync(stream);
