@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CityInfo.API.Commands
+namespace CityInfo.API.Domain.Models
 {
-    public class PatchPointOfInterest
+    public class PointOfInterestDto
     {
+        private static int _id = 1;
+        public int Id { get; set; } = _id++;
         [Required]
         [MaxLength(64)]
         public string Name { get; set; } = string.Empty;

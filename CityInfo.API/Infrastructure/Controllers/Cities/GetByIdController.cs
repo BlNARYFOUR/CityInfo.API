@@ -1,7 +1,8 @@
-﻿using CityInfo.API.Models;
+﻿using CityInfo.API.Domain.Models;
+using CityInfo.API.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CityInfo.API.Controllers.Cities
+namespace CityInfo.API.Infrastructure.Controllers.Cities
 {
     [Route("api/cities/{id}")]
     [ApiController]

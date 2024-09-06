@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
-namespace CityInfo.API.Controllers.Files
+namespace CityInfo.API.Infrastructure.Controllers.Files
 {
     [Route("api/files/{id}")]
     [ApiController]
     [Tags("Files")]
     public class GetByIdController(FileExtensionContentTypeProvider fectProvider) : ControllerBase
     {
-        private readonly FileExtensionContentTypeProvider _fectProvider = fectProvider ?? throw new System.ArgumentNullException(nameof(fectProvider));
+        private readonly FileExtensionContentTypeProvider _fectProvider = fectProvider ?? throw new ArgumentNullException(nameof(fectProvider));
 
         [HttpGet(Name = "GetFile")]
         public ActionResult GetFile(int id)

@@ -1,11 +1,12 @@
-﻿using CityInfo.API.Models;
+﻿using CityInfo.API.Domain.Models;
+using CityInfo.API.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CityInfo.API.Controllers.PointsOfInterest
+namespace CityInfo.API.Infrastructure.Controllers.PointsOfInterest
 {
+    [Tags("Points of Interest")]
     [Route("api/cities/{cityId}/pointsofinterest")]
     [ApiController]
-    [Tags("Points of Interest")]
     public class GetListController(ILogger<GetListController> logger) : ControllerBase
     {
         private readonly ILogger<GetListController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));

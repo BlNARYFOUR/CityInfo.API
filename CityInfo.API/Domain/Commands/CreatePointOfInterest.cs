@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CityInfo.API.Commands
+namespace CityInfo.API.Domain.Commands
 {
     public class CreatePointOfInterest
     {

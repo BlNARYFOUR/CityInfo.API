@@ -1,11 +1,11 @@
-﻿using CityInfo.API.Models;
+﻿using CityInfo.API.Domain.Models;
 
-namespace CityInfo.API
+namespace CityInfo.API.Infrastructure.Services
 {
     public class CitiesDataStore
     {
         public List<CityDto> Cities { get; }
-        public static CitiesDataStore Instance { get { return _instance ??= new CitiesDataStore(); }}
+        public static CitiesDataStore Instance { get { return _instance ??= new CitiesDataStore(); } }
         private static CitiesDataStore? _instance;
 
         private CitiesDataStore()
