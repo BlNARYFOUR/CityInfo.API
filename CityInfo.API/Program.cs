@@ -1,3 +1,7 @@
+using CityInfo.API.Domain.Repositories;
+using CityInfo.API.Domain.Services;
+using CityInfo.API.Infrastructure.Repositories;
+using CityInfo.API.Infrastructure.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
@@ -21,6 +25,10 @@ builder.Services.AddProblemDetails(options => options.CustomizeProblemDetails = 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
+
+builder.Services.AddTransient<IMail, LocalMail>();
+builder.Services.AddSingleton<ICityRepository, CityRepository>();
+builder.Services.AddSingleton<IPointOfInterestRepository, PointOfInterestRepository>();
 
 var app = builder.Build();
 
